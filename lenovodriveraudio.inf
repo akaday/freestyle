@@ -1,0 +1,270 @@
+[Version]
+Signature="$Windows NT$"
+Class=MEDIA
+Provider=%ProviderName%
+ClassGUID={4d36e96c-e325-11ce-bfc1-08002be10318}
+DriverVer = 11/29/2022,2.0.000.132
+CatalogFile=lenovoDriverAudio.cat
+;PnpLockDown = 1
+
+[SourceDisksNames.x86]
+1 = %DiskName%,,,\x86
+
+[SourceDisksNames.amd64]
+1 = %DiskName%,,,\amd64
+
+[SourceDisksFiles]
+lenovoDriverAudio.sys=1,,
+
+[SignatureAttributes]
+lenovoDriverAudio.sys=SignatureAttributes.DRM
+
+[SignatureAttributes.DRM]
+DRMLevel=1300
+
+[SignatureAttributes.PETrust]
+PETrust=true
+
+[Manufacturer]
+%MfgName%=SYSVAD,NTx86,NTamd64
+
+[SYSVAD.NTx86]
+%SYSVAD_SA.DeviceDesc%=SYSVAD_SA, {63384FBF-F398-46AB-86C9-5CCDF1EC4917}\VID_DATRONICSOFT&PID_SPACEDESK_VIRTUAL_AUDIO_RENDER
+%SYSVAD_SA.DeviceDesc%=SYSVAD_SA, {63384FBF-F398-46AB-86C9-5CCDF1EC4917}\VID_DATRONICSOFT&PID_SPACEDESK_VIRTUAL_AUDIO_CAPTURE
+
+[SYSVAD.NTamd64]
+%SYSVAD_SA.DeviceDesc%=SYSVAD_SA, {63384FBF-F398-46AB-86C9-5CCDF1EC4917}\VID_DATRONICSOFT&PID_SPACEDESK_VIRTUAL_AUDIO_RENDER
+%SYSVAD_SA.DeviceDesc%=SYSVAD_SA, {63384FBF-F398-46AB-86C9-5CCDF1EC4917}\VID_DATRONICSOFT&PID_SPACEDESK_VIRTUAL_AUDIO_CAPTURE
+
+
+
+[DestinationDirs]
+SYSVAD_SA.CopyList=12
+
+;======================================================
+; SYSVAD_SA
+;======================================================
+[SYSVAD_SA.CopyList]
+lenovoDriverAudio.sys
+
+[SYSVAD_SA.AddReg]
+HKR,,AssociatedFilters,,"wdmaud,swmidi,redbook"
+HKR,,Driver,,lenovoDriverAudio.sys
+
+;
+; For demo only, please review these power management settings for your architecture. 
+;
+HKR,PowerSettings,SingleComponentMultiFxStates,3,1,0,0,0  ; Turn on multi Fx support.
+HKR,PowerSettings,ConservationIdleTime,3,3,0,0,0          ; 3 seconds for idle power management when on battery
+HKR,PowerSettings,PerformanceIdleTime,3,3,0,0,0           ; 3 seconds for idle power management when on AC power
+HKR,PowerSettings,IdlePowerState,3,3,0,0,0                ; go to D3 for idle power management
+
+HKR,Drivers,SubClasses,,"wave,midi,mixer"
+
+HKR,Drivers\wave\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\midi\wdmaud.drv,Driver,,wdmaud.drv
+HKR,Drivers\mixer\wdmaud.drv,Driver,,wdmaud.drv
+
+HKR,Drivers\wave\wdmaud.drv,Description,,%SYSVAD_SA.DeviceDesc%
+HKR,Drivers\midi\wdmaud.drv,Description,,%SYSVAD_MIDI%
+HKR,Drivers\mixer\wdmaud.drv,Description,,%SYSVAD_SA.DeviceDesc%
+
+HKR,%MEDIA_CATEGORIES%\%MicInCustomNameGUID%,Name,,%MicInCustomName%
+
+;======================================================
+; render interfaces: speaker (internal)
+;======================================================
+[SYSVAD.I.WaveSpeaker]
+AddReg=SYSVAD.I.WaveSpeaker.AddReg
+
+[SYSVAD.I.WaveSpeaker.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SYSVAD.WaveSpeaker.szPname%
+
+[SYSVAD.I.TopologySpeaker]
+AddReg=SYSVAD.I.TopologySpeaker.AddReg
+
+[SYSVAD.I.TopologySpeaker.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SYSVAD.TopologySpeaker.szPname%
+
+HKR,EP\0,%PKEY_AudioEndpoint_Association%,,%KSNODETYPE_ANY%
+HKR,FX\0,%PKEY_FX_Association%,,%KSNODETYPE_ANY%
+
+; The following lines opt-in to pull mode.
+HKR,EP\0,%PKEY_AudioEndpoint_Supports_EventDriven_Mode%,0x00010001,0x1
+
+;======================================================
+; render interfaces: speaker (external: headphone)
+;======================================================
+[SYSVAD.I.WaveSpeakerHeadphone]
+AddReg=SYSVAD.I.WaveSpeakerHeadphone.AddReg
+[SYSVAD.I.WaveSpeakerHeadphone.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SYSVAD.WaveSpeakerHeadphone.szPname%
+
+[SYSVAD.I.TopologySpeakerHeadphone]
+AddReg=SYSVAD.I.TopologySpeakerHeadphone.AddReg
+[SYSVAD.I.TopologySpeakerHeadphone.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SYSVAD.TopologySpeakerHeadphone.szPname%
+; The following lines opt-in to pull mode.
+HKR,EP\0,%PKEY_AudioEndpoint_Association%,,%KSNODETYPE_ANY%
+HKR,EP\0,%PKEY_AudioEndpoint_Supports_EventDriven_Mode%,0x00010001,0x1
+
+;======================================================
+; capture interfaces: mic in (external: headphone)
+;======================================================
+[SYSVAD.I.WaveMicIn]
+AddReg=SYSVAD.I.WaveMicIn.AddReg
+[SYSVAD.I.WaveMicIn.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SYSVAD.WaveMicIn.szPname%
+
+[SYSVAD.I.TopologyMicIn]
+AddReg=SYSVAD.I.TopologyMicIn.AddReg
+[SYSVAD.I.TopologyMicIn.AddReg]
+HKR,,CLSID,,%Proxy.CLSID%
+HKR,,FriendlyName,,%SYSVAD.TopologyMicIn.szPname%
+; The following lines opt-in to pull mode.
+HKR,EP\0,%PKEY_AudioEndpoint_Association%,,%KSNODETYPE_ANY%
+HKR,EP\0,%PKEY_AudioEndpoint_Supports_EventDriven_Mode%,0x00010001,0x1
+
+;======================================================
+; SYSVAD_SA
+;======================================================
+[SYSVAD_SA.NT]
+Include=ks.inf,wdmaudio.inf
+Needs=KS.Registration, WDMAUDIO.Registration
+CopyFiles=SYSVAD_SA.CopyList
+AddReg=SYSVAD_SA.AddReg
+
+[SYSVAD_SA.NT.Interfaces]
+;
+; Interfaces for speaker (internal) render endpoint.
+;
+AddInterface=%KSCATEGORY_AUDIO%, %KSNAME_WaveSpeaker%, SYSVAD.I.WaveSpeaker
+AddInterface=%KSCATEGORY_RENDER%, %KSNAME_WaveSpeaker%, SYSVAD.I.WaveSpeaker
+AddInterface=%KSCATEGORY_REALTIME%, %KSNAME_WaveSpeaker%, SYSVAD.I.WaveSpeaker
+AddInterface=%KSCATEGORY_AUDIO%, %KSNAME_TopologySpeaker%, SYSVAD.I.TopologySpeaker
+AddInterface=%KSCATEGORY_TOPOLOGY%, %KSNAME_TopologySpeaker%, SYSVAD.I.TopologySpeaker
+
+;
+; Interfaces for speaker (external: headphone) render endpoint.
+;
+AddInterface=%KSCATEGORY_AUDIO%, %KSNAME_WaveSpeakerHeadphone%, SYSVAD.I.WaveSpeakerHeadphone
+AddInterface=%KSCATEGORY_RENDER%, %KSNAME_WaveSpeakerHeadphone%, SYSVAD.I.WaveSpeakerHeadphone
+AddInterface=%KSCATEGORY_REALTIME%, %KSNAME_WaveSpeakerHeadphone%, SYSVAD.I.WaveSpeakerHeadphone
+AddInterface=%KSCATEGORY_AUDIO%, %KSNAME_TopologySpeakerHeadphone%, SYSVAD.I.TopologySpeakerHeadphone
+AddInterface=%KSCATEGORY_TOPOLOGY%, %KSNAME_TopologySpeakerHeadphone%, SYSVAD.I.TopologySpeakerHeadphone
+
+;
+; Interfaces for microphone (external: headphone) capture endpoint 
+;
+AddInterface=%KSCATEGORY_AUDIO%,    %KSNAME_WaveMicIn%, SYSVAD.I.WaveMicIn
+AddInterface=%KSCATEGORY_REALTIME%, %KSNAME_WaveMicIn%, SYSVAD.I.WaveMicIn
+AddInterface=%KSCATEGORY_CAPTURE%,  %KSNAME_WaveMicIn%, SYSVAD.I.WaveMicIn
+AddInterface=%KSCATEGORY_AUDIO%,    %KSNAME_TopologyMicIn%, SYSVAD.I.TopologyMicIn
+AddInterface=%KSCATEGORY_TOPOLOGY%, %KSNAME_TopologyMicIn%, SYSVAD.I.TopologyMicIn
+
+[SYSVAD_SA.NT.Services]
+AddService=lenovoDriverAudio,0x00000002,sysvad_TabletAudioSample_Service_Inst
+
+[sysvad_TabletAudioSample_Service_Inst]
+DisplayName=%SYSVAD_TabletAudioSample.SvcDesc%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\lenovoDriverAudio.sys
+
+[SYSVAD_SA.NT.HW]
+AddReg = AUDIOHW.AddReg
+
+[AUDIOHW.AddReg]
+; FILE_DEVICE_SOUND
+HKR,,DeviceType,0x10001,0x0000001D
+; SDDL_DEVOBJ_SYS_ALL_ADM_RWX_WORLD_RWX_RES_RWX
+HKR,,Security,,"D:P(A;;GA;;;SY)(A;;GRGWGX;;;BA)(A;;GRGWGX;;;WD)(A;;GRGWGX;;;RC)"
+
+
+;======================================================
+; WDF
+;======================================================
+[SYSVAD_SA.NT.Wdf]
+KmdfService = lenovoDriverAudio, SYSVAD_SA_WdfSect
+[SYSVAD_SA_WdfSect]
+KmdfLibraryVersion = 1.15
+
+;======================================================
+; COMMON
+;======================================================
+[Strings]
+
+;Non-localizable
+
+KSNAME_WaveSpeaker="WaveSpeaker"
+KSNAME_TopologySpeaker="TopologySpeaker"
+
+
+KSNAME_WaveSpeakerHeadphone="WaveSpeakerHeadphone"
+KSNAME_TopologySpeakerHeadphone="TopologySpeakerHeadphone"
+
+KSNAME_WaveMicIn="WaveMicIn"
+KSNAME_TopologyMicIn="TopologyMicIn"
+
+Proxy.CLSID="{17CCA71B-ECD7-11D0-B908-00A0C9223196}"
+KSCATEGORY_AUDIO="{6994AD04-93EF-11D0-A3CC-00A0C9223196}"
+KSCATEGORY_RENDER="{65E8773E-8F56-11D0-A3B9-00A0C9223196}"
+KSCATEGORY_CAPTURE="{65E8773D-8F56-11D0-A3B9-00A0C9223196}"
+KSCATEGORY_REALTIME ="{EB115FFC-10C8-4964-831D-6DCB02E6F23F}"
+KSCATEGORY_TOPOLOGY = "{DDA54A40-1E4C-11D1-A050-405705C10000}"
+
+KSNODETYPE_ANY   = "{00000000-0000-0000-0000-000000000000}"
+
+PKEY_AudioEndpoint_Association               = "{1DA5D803-D492-4EDD-8C23-E0C0FFEE7F0E},2"
+PKEY_AudioEndpoint_Supports_EventDriven_Mode = "{1DA5D803-D492-4EDD-8C23-E0C0FFEE7F0E},7"
+;PKEY_AudioEndpoint_Default_VolumeInDb        = "{1DA5D803-D492-4EDD-8C23-E0C0FFEE7F0E},9"
+
+PKEY_FX_Association                 = "{D04E05A6-594B-4FB6-A80D-01AF5EED7D1D},0"
+PKEY_FX_EndpointEffectClsid         = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},7"
+PKEY_FX_KeywordDetector_ModeEffectClsid = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},9"
+PKEY_FX_KeywordDetector_EndpointEffectClsid = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},10"
+PKEY_CompositeFX_StreamEffectClsid  = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},13"
+PKEY_CompositeFX_ModeEffectClsid    = "{D04E05A6-594B-4fb6-A80D-01AF5EED7D1D},14"
+
+PKEY_SFX_ProcessingModes_Supported_For_Streaming = "{D3993A3F-99C2-4402-B5EC-A92A0367664B},5"
+PKEY_MFX_ProcessingModes_Supported_For_Streaming = "{D3993A3F-99C2-4402-B5EC-A92A0367664B},6"
+;PKEY_EFX_ProcessingModes_Supported_For_Streaming = "{D3993A3F-99C2-4402-B5EC-A92A0367664B},7"
+PKEY_EFX_KeywordDetector_ProcessingModes_Supported_For_Streaming =  "{D3993A3F-99C2-4402-B5EC-A92A0367664B},10"
+
+REG_MULTI_SZ = 0x00010000           ; FLG_ADDREG_TYPE_MULTI_SZ
+AUDIO_SIGNALPROCESSINGMODE_DEFAULT = "{C18E2F7E-933D-4965-B7D1-1EEF228D2AF3}"
+AUDIO_SIGNALPROCESSINGMODE_MEDIA   = "{4780004E-7133-41D8-8C74-660DADD2C0EE}"
+AUDIO_SIGNALPROCESSINGMODE_MOVIE   = "{B26FEB0D-EC94-477C-9494-D1AB8E753F6E}"
+
+MEDIA_CATEGORIES = "MediaCategories"
+MicInCustomNameGUID = {d48deb08-fd1c-4d1e-b821-9064d49ae96e}
+
+;Localizable
+
+ProviderName = "Lenovo Inc"
+MfgName      = "Lenovo Inc"
+DiskName     = "SYSVAD Driver Disk"
+
+SYSVAD_SA.DeviceDesc="Virtual Audio Device (WDM) - Lenovo"
+SYSVAD_TabletAudioSample.SvcDesc="Virtual Audio Device (WDM) - Lenovo Audio Driver"
+SYSVAD_MIDI="Virtual Audio Device (WDM) - Midi Device"
+
+;; friendly names
+SYSVAD.WaveSpeaker.szPname="SYSVAD Wave Speaker"
+SYSVAD.TopologySpeaker.szPname="SYSVAD Topology Speaker"
+
+SYSVAD.WaveSpeakerHeadphone.szPname="SYSVAD Wave Speaker Headphone"
+SYSVAD.TopologySpeakerHeadphone.szPname="SYSVAD Topology Speaker Headphone"
+
+SYSVAD.WaveMicIn.szPname="SYSVAD Wave Microphone Headphone"
+SYSVAD.TopologyMicIn.szPname="SYSVAD Topology Microphone Headphone"
+
+MicInCustomName= "Virtual Microphone"
+
+
