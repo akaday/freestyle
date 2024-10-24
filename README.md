@@ -16,4 +16,4 @@ To use the project, follow these steps:
 3. Customize the project according to your needs by modifying the source code and configuration files.
 
 ## License
-This project is licensed under the ISC License. See the LICENSE file for more details.
+This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for more details.
