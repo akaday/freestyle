@@ -1,25 +1,20 @@
-# freestyle
+# Freestyle
 
-## Project Description
-Freestyle is a project that aims to provide a flexible and customizable framework for building applications. It offers a set of tools and components that can be easily integrated and extended to suit various use cases.
+## Overview
+This repository contains various tools, drivers, and documentation for managing and automating tasks.
 
-## Installation
-To install the project, follow these steps:
-1. Clone the repository: `git clone https://github.com/akaday/freestyle.git`
-2. Navigate to the project directory: `cd freestyle`
-3. Install the dependencies: `npm install`
+## Structure
+- `drivers/`: Contains all Lenovo driver files.
+- `tools/`: Automation scripts.
+- `docs/`: Documentation and licenses.
 
 ## Usage
-To use the project, follow these steps:
-1. Start the development server: `npm start`
-2. Open your browser and navigate to `http://localhost:3000`
-3. Customize the project according to your needs by modifying the source code and configuration files.
+### Automation
+Run `automation.py` in the `tools` directory to automate tasks.
 
-### Python Automation Script
-The `automation.py` script is used to automate repetitive tasks in the repository. It includes functions for file generation, data processing, and system configuration.
+### Drivers
+- Install drivers from the `drivers` directory as needed.
 
-To use the `automation.py` script, follow these steps:
-1. Ensure you have Python installed on your system.
 2. Run the script using the command: `python automation.py`
 3. The script will execute the automation tasks and provide output in the terminal.
 
