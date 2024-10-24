@@ -1,4 +1,4 @@
-h# freestyle
+# freestyle
 
 ## Project Description
 Freestyle is a project that aims to provide a flexible and customizable framework for building applications. It offers a set of tools and components that can be easily integrated and extended to suit various use cases.
