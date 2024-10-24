@@ -15,5 +15,13 @@ To use the project, follow these steps:
 2. Open your browser and navigate to `http://localhost:3000`
 3. Customize the project according to your needs by modifying the source code and configuration files.
 
+### Python Automation Script
+The `automation.py` script is used to automate repetitive tasks in the repository. It includes functions for file generation, data processing, and system configuration.
+
+To use the `automation.py` script, follow these steps:
+1. Ensure you have Python installed on your system.
+2. Run the script using the command: `python automation.py`
+3. The script will execute the automation tasks and provide output in the terminal.
+
 ## License
 This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for more details.
